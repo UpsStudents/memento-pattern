@@ -31,10 +31,16 @@ export class Caretaker
         return result;
     }
 
-    public async Undo(id:number, appService: AppService): Promise<MementoDTO>
+    public async Undo(id:number, appService: AppService): Promise<MementoHistoryItemDTO>
     {
         if (!this._mementos.length) {
            await this.GetHistory(appService);
+        }
+
+        if(!this._originator){
+            let originatorBase = await appService.getLast();
+            this._originator = new Originator(originatorBase.id, originatorBase.title, originatorBase.summary, originatorBase.date);
+
         }
 
         const memento = this._mementos.filter(x => x.getId().toString() === id.toString())[0];

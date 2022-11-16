@@ -45,7 +45,7 @@ export class AppComponent {
       response => {
         this.editorForm.patchValue({
           title: response.title,
-          content: response.content,
+          content: response.summary,
           date: response.date
         });
       }

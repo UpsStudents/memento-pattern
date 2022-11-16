@@ -53,7 +53,12 @@ export class AppService {
   }
 
   async getLast():Promise<MementoHistoryItemDTO>{
-    let response: MementoHistoryItemDTO;
+    let response: MementoHistoryItemDTO = {
+      id: 0,
+      date: null,
+      summary: '',
+      title: ''
+    };
     let results = await this.dataSource
       .createQueryBuilder()
       .select('*')
@@ -74,8 +79,13 @@ export class AppService {
     return response;
   }
 
-  async getMemento(id: number):Promise<MementoDTO>{
-    let response: MementoDTO;
+  async getMemento(id: number):Promise<MementoHistoryItemDTO>{
+    let response: MementoHistoryItemDTO = {
+      id: 0,
+      date: null,
+      summary: '',
+      title: ''
+    };
     let results = await this.dataSource
       .createQueryBuilder()
       .select('*')
@@ -86,7 +96,8 @@ export class AppService {
     
     Promise.all(
       results = results.map(async (result: Memento) => {
-        response.content = result.content;
+        response.id = result.id;
+        response.summary = result.content;
         response.date = result.date;
         response.title = result.title;
       })

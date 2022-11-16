@@ -30,7 +30,7 @@ export class MementoService {
     return this.http.get<MementoHistoryItem[]>(this.BASE_URL + '/getMementoHistory')
   }
 
-  public restoreMemento(id: number): Observable<Memento>{
+  public restoreMemento(id: number): Observable<MementoHistoryItem>{
     // var response: Memento = {
     //   title: "A title",
     //   content: "A summary",
@@ -38,7 +38,7 @@ export class MementoService {
     // };
 
     // return of(response);
-    return this.http.get<Memento>(this.BASE_URL + '/restoreMemento?id='+ id)
+    return this.http.get<MementoHistoryItem>(this.BASE_URL + '/restoreMemento?id='+ id)
   }
 
   public saveMemento(memento: Memento): Observable<number>{

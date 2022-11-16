@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { Caretaker } from './domain/caretaker';
@@ -22,10 +22,10 @@ export class AppController {
     return result;
   }
 
-  @Get('restoreMemento/:id')
-  restoreMemento(@Param('id') id:number): Promise<MementoDTO>{
+  @Get('restoreMemento')
+  async restoreMemento(@Query('id') id:number): Promise<MementoHistoryItemDTO>{
     this._careTaker = new Caretaker(this._originator);
-    return this._careTaker.Undo(id, this.appService);
+    return await this._careTaker.Undo(id, this.appService);
   }
 
   @ApiBody({description: "body:MementoDTO"})
